@@ -33,21 +33,33 @@ contract Certificates {
         // validity period
         uint256 issuedOn;
         uint256 expiresOn;
+
+        // fingerprint
+        bytes32 verificationHash;
     }
 
     TransferStruct[] transactions;
     
+
+    function generateHash(uint amount,address receiver) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked(amount, receiver));
+    }
+
     // main part of blockchain  
     function addToBlockchain(address payable receiver, uint amount, 
                             string memory issuedToCN, string memory issuedToO, string memory issuedToOU, 
                             string memory issuedByCN, string memory issuedByO, string memory issuedByOU, 
                             uint issuedOn, uint expiresOn) public { 
+                                
         transactionCount += 1;
+
+        bytes32 verificationHash = generateHash(amount,msg.sender);
+
         // adding to list
         transactions.push(TransferStruct(msg.sender, receiver, amount, block.timestamp, 
                                         issuedToCN, issuedToO, issuedToOU, 
                                         issuedByCN, issuedByO, issuedByOU, 
-                                        issuedOn, expiresOn)); 
+                                        issuedOn, expiresOn,verificationHash)); 
 
         // adding to blockchain
         emit Transfer(msg.sender, receiver, amount, block.timestamp, 

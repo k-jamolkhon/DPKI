@@ -23,8 +23,6 @@ const Verify = () => {
 
     const handleSubmit = (e) => {
 
-        if (!ethereum) return alert("Please install MetaMask.");
-
         const { txHash } = formHash;
 
         //prevent reloading the page after submitting the Form

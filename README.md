@@ -8,8 +8,12 @@ Prerequisites:
     - npm >= v9.7.2
 
 Run locally:
-    $ npm install
-    $ npm run dev
+
+```shell
+    cd client/
+    npm install
+    npm run dev
+```
 
 Usage:
     - Install MetaMask extension and create account for Sepolia ETH network (tutorial link: https://decentralizedcreator.com/create-metamask-wallet/).
